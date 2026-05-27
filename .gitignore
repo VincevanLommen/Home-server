@@ -1,0 +1,33 @@
+# Ignore all container data
+*/data/
+*/log/
+*/logs/
+*/config/
+*/certs/
+*/tls/
+*/bin/
+*/docker_config/
+*/compose/
+
+# Ignore Portainer internal DB
+portainer/data/
+
+# Ignore Postgres database files
+postgres/data/
+
+# Ignore Minecraft world data
+minecraft/data/
+
+# Ignore Node-RED runtime data
+node-red/data/
+
+# Ignore Mosquitto data
+mqtt/data/
+
+# Ignore Glances cache
+glances/data/
+
+# Ignore system files
+*.db
+*.pid
+*.sock
