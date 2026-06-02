@@ -1,0 +1,13 @@
+services:
+  samba:
+    image: dperson/samba
+    container_name: samba
+    ports:
+      - "445:445"
+      - "139:139"
+    volumes:
+      - /srv/nas:/mount
+    command: >
+      -s "NAS;/mount;yes;no;no;all"
+      -u "vizo;password"
+    restart: unless-stopped
