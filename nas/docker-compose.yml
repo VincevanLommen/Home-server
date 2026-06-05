@@ -1,13 +1,39 @@
 services:
   samba:
-    image: dperson/samba
-    container_name: samba
-    ports:
-      - "445:445"
-      - "139:139"
-    volumes:
-      - /srv/nas:/mount
-    command: >
-      -s "NAS;/mount;yes;no;no;all"
-      -u "vizo;password"
+    image: ghcr.io/servercontainers/samba:latest
+    container_name: nas-samba
     restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - CAP_NET_ADMIN
+    volumes:
+      - ./data:/shares/data
+    environment:
+      AVAHI_NAME: ThinkCentre-NAS
+      MODEL: NAS
+      ACCOUNT_admin: admin
+      UID_admin: 1000
+      SAMBA_VOLUME_CONFIG_data: |
+        [Data]
+        path = /shares/data
+        valid users = admin
+        guest ok = no
+        read only = no
+        browseable = yes
+        force user = admin
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    depends_on:
+      - samba
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data:/srv
+      - ./filebrowser.db:/database/filebrowser.db
+    environment:
+      FB_DATABASE: /database/filebrowser.db
+    restart: unless-stopped
+
+volumes: {}

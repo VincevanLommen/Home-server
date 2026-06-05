@@ -1,9 +1,0 @@
-services:
-  dashdot:
-    image: mauricenino/dashdot:latest
-    container_name: dashdot
-    ports:
-      - "3001:3001"
-    volumes:
-      - /:/mnt/host:ro
-    restart: unless-stopped

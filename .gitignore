@@ -1,4 +1,4 @@
-# Ignore all container data
+# Runtime data and volumes
 */data/
 */log/
 */logs/
@@ -9,25 +9,44 @@
 */docker_config/
 */compose/
 
-# Ignore Portainer internal DB
+# Service-specific persistent state
 portainer/data/
-
-# Ignore Postgres database files
 postgres/data/
-
-# Ignore Minecraft world data
 minecraft/data/
-
-# Ignore Node-RED runtime data
 node-red/data/
-
-# Ignore Mosquitto data
 mqtt/data/
-
-# Ignore Glances cache
 glances/data/
 
-# Ignore system files
+# Pi-hole generated configuration and databases
+pihole/etc-pihole/
+pihole/etc-dnsmasq.d/
+
+# NAS local state (not for version control)
+nas/filebrowser.db
+nas/*.bak*
+nas/init.sh
+
+# Secrets and environment files
+*.env
+.env.*
+!.env.example
+
+# Databases, sockets, and process files
 *.db
+*.db-shm
+*.db-wal
 *.pid
 *.sock
+
+# Keys and certificates
+*.pem
+*.key
+*.crt
+*_rsa
+*_ed25519
+id_*
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*~
